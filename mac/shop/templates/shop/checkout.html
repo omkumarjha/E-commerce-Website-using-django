@@ -1,0 +1,214 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %} Checkout Page {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/responsive_home.css' %}">
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+<link rel="stylesheet" href="{% static 'css/responsive_checkout.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<div class="checkout-container">
+    <!-- Ye div user ko uske items ki info show karega -->
+    <div class="order-summary">
+        <h2>Step 1 - Review Your Buying Items</h2>
+
+        <div class="review-order">
+            <div class="buy-now">
+                <div class="left">
+                    <h4>{{product.prodName}}</h4>
+                </div>
+                <div class="right">
+                    1
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr style = "margin-top: 37px; margin-bottom: 20px;">
+
+    <!-- Ye div user se uski details lega -->
+    <div class="order-details">
+        <h2>Step 2 - Enter Address & Other details</h2>
+
+        <form class = "user-details" action = "/shop/checkout/0/0/0" method = "post" >
+            {% csrf_token %}
+
+            <div class="row1">
+                <div class="name">
+                    <h4>Name</h4>
+                    <input type="text" name = "name" id = "name">
+                </div>
+    
+                <div class="email">
+                    <h4>Email</h4>
+                    <input type="email" name = "email" id = "email">
+                </div>
+            </div>
+
+            <div class="address1">
+                <h4>Address 1</h4>
+                <input type="text" name = "address1" id = "address1">
+            </div>
+
+            <div class="address2">
+                <h4>Address 2</h4>
+                <input type="text" name = "address2" id = "address2">
+            </div>
+
+            <div class="row2">
+                <div class="phone1">
+                    <h4>Phone Number</h4>
+                    <input type="tel" name="phone1" id = "phone1">
+                </div>
+    
+                <div class="phone2">
+                    <h4>Alternative Phone Number</h4>
+                    <input type="tel" name="phone2" id = "phone2">
+                </div>
+            </div>
+
+            <div class="row3">
+                <div class="city">
+                    <h4>City</h4>
+                    <input type="text" name = "city" id = "city">
+                </div>
+
+                <div class="state">
+                    <h4>State</h4>
+                    <input type="text" name = "state" id = "state">
+                </div>
+
+                <div class="zip">
+                    <h4>Zip</h4>
+                    <input type="text" name = "pin" id = "pin">
+                </div>
+            </div>
+            <input type="hidden" name = "amount" value="0" id = "amount">
+
+        </form>
+
+    </div>
+
+    <hr style = "margin-top: 37px; margin-bottom: 20px;">
+
+    <!-- Payment div  -->
+    <div class="product-payment">
+        <h2>Step 3 - Complete Your Payment</h2>
+
+        <div class="payment-box">
+            <div class="price">
+                <h2>Price(0 items)</h2>
+                <h3>₹0</h3>
+            </div>
+    
+            <div class="delivery-charges">
+                <h2>Delivery Charges</h2>
+                <h3 style="color: var(--main); font-family: 'Lato'; ">FREE</h3>
+            </div>
+
+        </div>
+        <div class="payment-button">
+            <button type="button" class = "payment-btn" id = "pay-btn" >Make Payment</button>
+        </div>
+
+    </div>
+</div>
+
+    {% endblock %}
+
+    {% block script %}
+
+    <!--  Razorpay's Javascript code. -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+
+        document.querySelector(".payment-btn").addEventListener("click",function(){
+            create_post()
+        })
+
+        // Creating AJAX to submit our form
+
+        function create_post(){
+
+            $.ajax({
+                type: "POST",
+                url: "/shop/paymentsuccess",
+                data:{
+                    name: $("#name").val(),
+                    email: $("#email").val(),
+                    phone1: $("#phone1").val(),
+                    phone2: $("#phone2").val(),
+                    address1: $("#address1").val(),
+                    address2: $("#address2").val(),
+                    city: $("#city").val(),
+                    state: $("#state").val(),
+                    pin: $("#pin").val(),
+                    amount: $("#amount").val(),
+                    csrfmiddlewaretoken: $("input[name = csrfmiddlewaretoken]").val(),
+                },
+                success: function(){
+                    $("#name").val("");
+                    $("#email").val("");
+                    $("#phone1").val("");
+                    $("#phone2").val("");
+                    $("#address1").val("");
+                    $("#address2").val("");
+                    $("#city").val("");
+                    $("#state").val("");
+                    $("#pin").val("");
+                    $("#amount").val("");
+                }
+            })
+        }
+
+            var options = {
+
+                // Enter the Key ID generated from the Dashboard
+                key: "{{ razorpay_merchant_key }}",
+                
+                // Amount is in currency subunits.
+                // Default currency is INR. Hence,
+                // 50000 refers to 50000 paise
+                amount: "{{ razorpay_amount }}",
+                currency: "INR",
+                "name" : "EStore",
+                "description" : "Thanks for shopping here",
+                
+                // Pass the `id` obtained in the response of Step 1
+                order_id: "{{ razorpay_order_id }}",
+                callback_url: "{{ callback_url }}",
+
+                // Agar user ne razorpay window ko dissmiss kar diya hai ye below code run karega
+                "modal": {
+                    "ondismiss": function(){
+                    window.location.href = "http://192.168.43.30:8000/shop/paymentfail"
+                }
+    }
+            };
+
+            // initialise razorpay with the options.
+            var rzp1 = new Razorpay(options);
+
+            // add event listener to the payment button.
+            document.getElementById("pay-btn").onclick = function (e) {
+                rzp1.open();
+                e.preventDefault();
+            };
+
+
+            // hidden input ke content ko total amount se replace kar rahe hai
+
+            var sum = sessionStorage.getItem("totalPrice")
+            sum = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            hiddenInput = document.getElementById("amount")
+            hiddenInput.value = `₹${sum}`
+
+    </script>
+    <script src="{% static 'javascript/checkout.js' %}"></script>
+    {% endblock %}

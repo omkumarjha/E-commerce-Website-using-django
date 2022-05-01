@@ -1,0 +1,108 @@
+@media(max-width: 1600px){
+    .order-details , .order-summary , .product-payment{
+        width: 70vw;
+    }
+}
+
+@media(max-width: 1400px){
+    .order-details , .order-summary , .product-payment{
+        width: 80vw;
+    }
+}
+
+@media(max-width: 1200px){
+    .order-details .row1 , .row2 , .row3{
+        flex-direction: column;
+    }
+    .order-details h2{
+        margin-bottom: 10px;
+    }
+    .row1 .name , .email{
+        width: 100%;
+    }
+    .name{
+        margin-bottom: 20px;
+    }
+    .address1 , .address2{
+        width: 100%;
+    }
+    .address1 input , .address2 input{
+        width: 95%;
+    }
+    .name input , .email input{
+        width: 95%;
+    }
+    .phone1{
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    .phone2{
+        width: 100%;
+    }
+    .phone1 input , .phone2 input{
+        width: 95%;
+    }
+    .city{
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    .state{
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    .zip{
+        width: 100%;
+    }
+    .city input , .state input , .zip input{
+        width: 95%;
+    }
+    .order-summary h2{
+        margin: 10px 0px 30px 0px;
+    }
+}
+
+
+@media (max-width: 600px){
+    .order-details , .order-summary , .product-payment{
+        width: 90vw;
+    }
+    .order-details h2 , .order-summary h2, .product-payment h2{
+        font-size: 24px;
+    }
+}
+
+
+@media (max-width: 500px){
+    .order-details h2 , .order-summary h2, .product-payment h2{
+        font-size: 21px;
+    }
+    .place-order h4{
+        font-size: 14px;
+    }
+    .price h2{
+        font-size: 19px;
+    }
+    .price h3{
+        font-size: 18px;
+    }
+    #payment-btn{
+        padding: 8px 0px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 400px){
+    .order-details h2 , .order-summary h2, .product-payment h2{
+        font-size: 20px;
+    }
+    .payment-box h2{
+        font-size: 17px;
+    }
+    .payment-box h3{
+        font-size: 16px;
+    }
+    #payment-btn{
+        padding: 8px 0px;
+        font-size: 14px;
+    }
+}

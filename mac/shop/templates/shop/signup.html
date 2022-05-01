@@ -1,0 +1,17 @@
+{% extends 'shop/login.html' %}
+{% load static %}
+
+{% block title %}SignUp page{% endblock %}
+
+{% block heading %} Create An Account!  {% endblock %} 
+
+{% block username %} 
+    <div class="username">
+        <h4>Username</h4>
+        <input type="text" name = "username" id = "username">
+    </div>
+{% endblock %}
+
+{% block formfeatures %} action="/shop/signup" {% endblock %}
+
+{% block last %}<h4 class = "lastheading"> <a href = "/shop/login">OR LOGIN</a></h4> {% endblock %}

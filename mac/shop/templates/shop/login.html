@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <title> {% block title %} Login Page(EStore) {% endblock %} </title>
+
+    
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .login-container{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(243,244,246);
+        }
+        .login-box{
+            display: flex;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
+            border-radius: 10px;
+            background: white;
+        }
+        .left{
+            width: 50%;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .right{
+            margin-left: 25px;
+            margin-right: 25px;
+            width: 50%;
+        }
+        .right h1{
+            font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            text-align: center;
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
+        .right h3{
+            text-align: center;
+            margin-bottom: 10px;
+            font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-size: 19px;
+            font-weight: 400;
+        }
+        .email{
+            margin-bottom: 15px;
+        }
+        .email h4{
+            font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .email input{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: none;
+            background: rgba(209,213,219);
+        }
+        .password h4{
+            font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .password{
+            margin-bottom: 15px;
+        }
+        .password input{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: none;
+            background: rgba(209,213,219);
+        }
+        .login-form button{
+            width: 100%;
+            margin-bottom: 15px;
+            margin-top: 19px;
+            padding: 7px 0px;
+            font-size: 16px;
+            border-radius: 5px;
+            background: #fb641b;
+            color: white;
+            font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+        .lastheading{
+            font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-size: 14px;
+            font-weight: 400;
+            margin-top: 12px;
+            cursor: pointer;
+        }
+        .right a{
+            text-decoration: none;
+        }
+        .username{
+            margin-bottom: 15px;
+        }
+        .username h4{
+            font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .username input{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: none;
+            background: rgba(209,213,219);
+        }
+
+        /* Responsive signup and login page */
+        @media(max-width: 1050px){
+            .left{
+                display: none;
+            }
+            .right{
+                width: 100%;
+            }
+            .login-box{
+                width: 90%;
+                padding: 20px 0px;
+            }
+        }
+    </style>
+
+
+</head>
+
+{% block body %}
+<body>
+    
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+
+            <div class="submit-contact green">
+                <div class="left-part">
+                    <div id = "message1"><strong>Success!:</strong></div>
+                    <div id = "message2">{{message}}</div>
+                </div>
+                <div class="right-part">
+                    <svg  onclick="cross_clicked()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </div>
+            </div>
+
+            {% endif %}
+            {% if message.tags == "error" %}
+
+            <div class="submit-contact red">
+                <div class="left-part">
+                    <div id = "message1"><strong>Error!:</strong></div>
+                    <div id = "message2">{{message}}</div>
+                </div>
+                <div class="right-part">
+                    <svg  onclick="cross_clicked()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </div>
+            </div>
+
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+
+    <div class="login-container">
+        
+        <div class="login-box">
+            <div class="left">
+                <img src="https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80">
+            </div>
+            <div class="right">
+                <h1>EStore</h1>
+                <h3> {% block heading %} Welcome Back!  {% endblock %}  </h3>
+
+                <hr style = "margin-top: 17px;  margin-bottom: 15px;">
+
+                <form class="login-form" {% block formfeatures %} action="/shop/login" {% endblock %} method="post">
+                    {% csrf_token %}
+
+                    {% block username %} {% endblock %}
+
+                    <div class="email">
+                        <h4>Email</h4>
+                        <input type="email" name = "email" id = "email">
+                    </div>
+
+                    <div class="password">
+                        <h4>Password</h4>
+                        <input type="password" name="password" id = "password">
+                    </div>
+
+                    <button type = "submit">Login</button>
+
+                </form>
+
+                
+                {% block last %}<h4 class = "lastheading"> <a href = "/shop/signup">OR SIGNUP</a></h4> {% endblock %}
+
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
+<script>
+
+    // Niche ka mainly code hai jab user ko message show karna hoga top par
+
+    function cross_clicked(){
+        document.querySelector(".submit-contact").style.display = "none"
+    }
+    var element = document.querySelector(".submit-contact")
+    element.style.display = "flex"
+
+
+</script>
+</html>

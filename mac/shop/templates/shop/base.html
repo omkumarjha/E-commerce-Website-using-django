@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Home Page {% endblock %}</title>
+    {% block style %} {% endblock %}
+</head>
+<body {% block load %} {% endblock %}>
+    
+    <!-- Making navbar -->
+    {% block navbar %}
+    <div class="navbar">
+        <div class="logo">
+            <b><a href="/shop/home">EStore</a></b>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/shop/home">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="/shop/contact">Contact</a></li>
+                <li><a href="/shop/tracker">Tracker</a></li>
+                <!-- Matlab agar user authenticate hai ya login kara hua hai to hi yeh element show hoga otherwise nhi -->
+                {% if user.is_authenticated %}
+                    <li><a href="/shop/logout">Logout</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+            <div class="search-input">
+                <input type="search" placeholder="Search for Items">
+            </div>
+
+            <div class="cart">
+                        <div class="cart-number">0</div>
+                        <svg class="V3C5bO" width="14" height="14" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><a href="/shop/cart"><path class="_1bS9ic" d="M15.32 2.405H4.887C3 2.405 2.46.805 2.46.805L2.257.21C2.208.085 2.083 0 1.946 0H.336C.1 0-.064.24.024.46l.644 1.945L3.11 9.767c.047.137.175.23.32.23h8.418l-.493 1.958H3.768l.002.003c-.017 0-.033-.003-.05-.003-1.06 0-1.92.86-1.92 1.92s.86 1.92 1.92 1.92c.99 0 1.805-.75 1.91-1.712l5.55.076c.12.922.91 1.636 1.867 1.636 1.04 0 1.885-.844 1.885-1.885 0-.866-.584-1.593-1.38-1.814l2.423-8.832c.12-.433-.206-.86-.655-.86" fill="#fff"></a></svg>
+                        <h4><a href="/shop/cart">Cart</a></h4>
+            </div>
+
+    </div>
+    {% endblock %}
+
+    {% block body %}
+
+    {% endblock %}
+
+
+    <!-- Adding footer on our home page -->
+    <footer>
+        <div class="content-footer">
+            <p>Copyright &copy; All right Reserverd @ www.EStore.com</p>
+        </div>
+    </footer>
+
+
+</body>
+
+<script>
+    
+    // Showing the number of products in our cart
+    if(localStorage.getItem("cart") == null){
+       var cart = {}
+    }
+    else{
+        var cart = JSON.parse(localStorage.getItem("cart"))
+        document.querySelector(".cart-number").innerHTML = Object.keys(cart).length;
+    }
+
+</script>
+<script src="{% static 'javascript/jquery-3.6.0.min.js' %}"></script>
+
+{% block script %} {% endblock %}
+</html>

@@ -1,0 +1,40 @@
+@media (max-width: 1150px) {
+
+    .present {
+        flex-direction: column;
+        align-items: center;
+    }
+    .right-side {
+        margin-left: 0px;
+        align-items: center;
+    }
+    .cart-container {
+        justify-content: center;
+        flex-direction: column;
+    }
+    .right-side h2{
+        text-align: center;
+    }
+    .right-cart{
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+    .product-details{
+        padding: 10px 0px;
+    }
+
+}
+@media(max-width: 400px){
+    .right-side{
+        width: 275px;
+    }
+    .product-details h4{
+        font-size: 15px;
+    }
+}
+@media(max-width: 500px){
+    .product-details h2{
+        margin: 12px 21px 12px 20px;
+        font-size: 19px;
+    }
+}

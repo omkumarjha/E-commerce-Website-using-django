@@ -1,0 +1,106 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %} Cart Store {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/responsive_home.css' %}">
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+<link rel="stylesheet" href="{% static 'css/responsive_cart.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<body>
+    <div class="cart-container">
+
+        <div class="left-cart">
+            <h3 style = "font-size: 24px;">My Cart(0)</h3>
+            <hr style="margin-top: 20px;">
+            {% for item in product %}
+            <div class="cart-items" id = "p{{item.id}}">
+
+                <div class="left-side">
+                    <img src="/media/{{item.prodImage}}" width="120px">
+                    <span class = "btnPlusMinus">
+                        <button class="minus" id = "minusp{{item.id}}">-</button> <button class="quantity" id = "btnp{{item.id}}">1</button> <button class="plus" id = "plusp{{item.id}}">+</button>
+                    </span>
+                </div>
+                <div class="right-side">
+                    <h2>{{item.prodName}}</h2>
+                    <h4>{{item.prodPrice}}</h4>
+                    <div class="cart-buttons">
+                        <button class = "remove-item" onclick = "buttonClick('p{{item.id}}')">Remove Item</button>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% for item in product2 %}
+            <div class="cart-items" id = "q{{item.id}}">
+
+                <div class="left-side">
+                    <img src="/media/{{item.prodImage}}" width="80px">
+                    <span class = "btnPlusMinus">
+                        <button class="minus" id = "minusq{{item.id}}">-</button> <button class="quantity" id = "btnq{{item.id}}">1</button> <button class="plus plusq{{item.id}}" id = "plusq{{item.id}}">+</button>
+                    </span>
+                </div>
+                <div class="right-side">
+                    <h2>{{item.prodName}}</h2>
+                    <h4>{{item.prodPrice}}</h4>
+                    <div class="cart-buttons">
+                        <button class = "remove-item" onclick = "buttonClick('q{{item.id}}')">Remove Item</button>
+                    </div>
+                    <hr> 
+                </div>
+            </div>
+            {% endfor %}
+                <div class="place-order">
+                    <a href="/shop/checkout/2/0/0"><button class = "btnCart">Place Order</button></a>
+                </div>
+        </div>
+        <div class="right-cart">
+            <div class="product-details">
+                <h2>Product Details</h2>
+                <hr style="margin: 20px 0px;">
+                
+                <div class="price">
+                    <h2>Price(0 items)</h2>
+                    <h3>₹0</h3>
+                </div>
+
+                <div class="delivery-charges">
+                    <h2>Delivery Charges</h2>
+                    <h3 style="color: var(--main)">FREE</h3>
+                </div>
+                <hr style="margin: 15px 0px;">
+
+                <div class="total-amount">
+                    <h2>Total Amount</h2>
+                    <h3>₹0</h3>
+                </div>
+                <hr  style="margin: 15px 0px;">
+
+                <h4>You Got , Free Delivery Charge Offer</h4>
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+</body>
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'javascript/cart.js' %}"></script>
+
+{% endblock %}

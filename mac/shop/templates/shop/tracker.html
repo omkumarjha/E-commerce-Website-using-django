@@ -1,0 +1,41 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block style %}
+ <link rel="stylesheet" href="{% static 'css/home.css' %}">
+ <link rel="stylesheet" href="{% static 'css/responsive_home.css' %}">
+ <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
+ <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+ <link rel="stylesheet" href="{% static 'css/responsive_checkout.css' %}">
+ <link rel="stylesheet" href="{% static 'css/responsive_tracker.css' %}">
+{% endblock %}
+
+{% block title %}Tracker Page{% endblock %}
+
+{% block body %}
+<body>
+    <div class="tracker-container">
+        <h1>Track your order here with your Order id and Email</h1>
+        <form class="tracker-form"  action = "/shop/tracker" method = "post">
+            {% csrf_token %}
+            <input type="text" placeholder = "Enter your Order Id" name =  "order_id" id = "order_id">
+            <input type="email" placeholder="Enter your email" name = "email" id = "email">
+            <button type = "submit" class = "tracker-btn">Track Order</button>
+        </form>
+        <hr style="margin-top: 25px; margin-bottom: 25px;">
+
+        
+        <div class="order-summary">
+            <h1>Your Current Order Tracking Status</h1>
+            <div class="order-child">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'javascript/tracker.js' %}"></script>
+{% endblock %}
