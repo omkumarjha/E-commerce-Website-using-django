@@ -34,9 +34,9 @@ SECRET_KEY = 'django-insecure-71()t8nb(hu9z8k30vf*%$g22-$3qe2t&)30*3#j9^hc4hr4in
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# "192.168.43.30"  --> My IP V4 Address
+# "192.168.1.9"  --> My IP V4 Address
 
-ALLOWED_HOSTS = ["192.168.43.30"]
+ALLOWED_HOSTS = ["192.168.1.9"]
 
 
 # Application definition
@@ -127,10 +127,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+STATIC_URL = '/static/'
+
+# Below 2 commands are related to Media folder
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = "/media/"
 

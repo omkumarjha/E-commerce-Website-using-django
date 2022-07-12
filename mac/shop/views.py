@@ -14,7 +14,7 @@ from django.core.mail import send_mail
 
 @login_required(login_url='/shop/login')   # Matlab agar user ne login nhi kiya hua to wo jis bhi page pe jaane ki koshish kare ko login_url wale path mai chala jayega
 def home(request):
-    products1 = Product.objects.all()
+    products1 = Product.objects.all()  # it will return a Query set Containing all the product objects
     products2 = Product2.objects.all()
 
     params = {
@@ -22,16 +22,6 @@ def home(request):
         "product2" : products2
     }
     return render(request,"shop/home.html",params)
-
-def loginPage(request):
-    products1 = Product.objects.all()
-    products2 = Product2.objects.all()
-
-    params = {
-        "product" : products1,
-        "product2" : products2
-    }
-    return render(request,"shop/loginPage.html",params)
 
 @login_required(login_url='/shop/login')
 def productView(request,id,num):
@@ -67,7 +57,6 @@ def contact(request):
         email = request.POST.get("email","")
         message = request.POST.get("message","")
 
-        print(name,phone,email,message)
         contact = Contact(name = name,phone = phone,email = email, message = message)
 
         contact.save()

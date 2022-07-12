@@ -7,7 +7,7 @@ function controller(num){
     flag = flag + num;
     showSlides(flag)
 }
-
+p
 function showSlides(num){
     let slides = document.getElementsByClassName("slide")
     if(num == slides.length){
@@ -19,8 +19,7 @@ function showSlides(num){
     Array.from(slides).forEach(function(element){
         element.style.display = "none";
     })
-    slides[flag].style.display = "block";
-    
+    slides[flag].style.dislay = "block";
 }
 setInterval(function(){
     controller(-1);
@@ -71,13 +70,9 @@ function moveRight(){
             child_slider[k-1].style.display = "block";
         }
     }
-
     if(end == n1){
         right_arrow.style.visibility = "hidden";
     }
-}
-if(end == n1){
-    right_arrow.style.visibility = "hidden";
 }
 
 // Code for product slider 2 of home page

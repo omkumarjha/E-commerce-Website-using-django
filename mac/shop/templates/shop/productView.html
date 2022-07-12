@@ -102,7 +102,6 @@
     .offers{
         margin-top: 30px;
     }
-
 </style>
 
 <style>
@@ -181,7 +180,7 @@
 {% block script %}
 <script>
 
-    /*  Yaha par ye logic hai ki jaise user ne kisi product ke 'Add to cart ' pe click kara to us button ke id ko key ke tor par and kitne bar click kara usko value
+    /*  Yaha par ye logic hai ki jaise user ne kisi product ke 'Add to cart ' pe click kara to us button ke id ko 'key' ke tor par and kitne bar click kara usko value
         ke tor par store kar do eak cart object ke aandar and cart ke aandar jitne bhi keys hai vo number of items in a cart represent karta hai.
     */
    
@@ -200,7 +199,6 @@
         }
         else{
             cart[id][1] = cart[id][1] + 1
-            console.log(cart)
         }
         localStorage.setItem("cart",JSON.stringify(cart))
         document.querySelector(".cart-number").innerHTML = Object.keys(cart).length;
@@ -211,7 +209,7 @@
     function change_AddToCart_To_GoToCart_While_Page_Loading(spanId,buttonId){
         var cart = JSON.parse(localStorage.getItem("cart"))
 
-        for(let item in cart){
+        for(let item in cart){  // Ye for in loop hai to isliye ye cart object ke 'keys' ko traverse karega na ki value ko
 
             if(item == buttonId){
                 document.getElementById(spanId).innerHTML = "<button class = 'btn1'><a href = '/shop/cart'>Go To Cart</a></button>"

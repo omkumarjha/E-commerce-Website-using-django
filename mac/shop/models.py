@@ -1,5 +1,7 @@
 from django.db import models
 
+# Below are some model class that we created..
+
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     prodName = models.CharField(max_length=50)
