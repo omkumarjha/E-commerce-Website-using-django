@@ -1,4 +1,3 @@
-
 //Code for Image-slider of home page
 let flag = 1;
 showSlides(flag)
@@ -7,7 +6,7 @@ function controller(num){
     flag = flag + num;
     showSlides(flag)
 }
-p
+
 function showSlides(num){
     let slides = document.getElementsByClassName("slide")
     if(num == slides.length){
@@ -19,7 +18,7 @@ function showSlides(num){
     Array.from(slides).forEach(function(element){
         element.style.display = "none";
     })
-    slides[flag].style.dislay = "block";
+    slides[flag].style.display = "block";
 }
 setInterval(function(){
     controller(-1);
@@ -137,5 +136,8 @@ if(end2 == n2){
 function cross_clicked(){
     document.querySelector(".submit-contact").style.display = "none"
 }
-var element = document.querySelector(".submit-contact")
-element.style.display = "flex"
+if(document.querySelector(".submit-contact")){
+    var element = document.querySelector(".submit-contact")
+    element.style.display = "flex"  
+}
+
