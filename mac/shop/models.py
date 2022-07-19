@@ -1,5 +1,7 @@
 from django.db import models
 
+# Below are some model class that we created..
+
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     prodName = models.CharField(max_length=50)
@@ -26,10 +28,9 @@ class Product2(models.Model):
 class Contact(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=20)
-    email = models.TextField(max_length=40)
-    phone = models.CharField(max_length = 50)
+    email = models.EmailField(max_length=40)
+    phone = models.IntegerField(max_length = 10)
     message = models.TextField(max_length = 200)
-
 
     def __str__(self):
         return self.name

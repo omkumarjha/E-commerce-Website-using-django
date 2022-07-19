@@ -1,4 +1,3 @@
-
 //Code for Image-slider of home page
 let flag = 1;
 showSlides(flag)
@@ -20,7 +19,6 @@ function showSlides(num){
         element.style.display = "none";
     })
     slides[flag].style.display = "block";
-    
 }
 setInterval(function(){
     controller(-1);
@@ -71,13 +69,9 @@ function moveRight(){
             child_slider[k-1].style.display = "block";
         }
     }
-
     if(end == n1){
         right_arrow.style.visibility = "hidden";
     }
-}
-if(end == n1){
-    right_arrow.style.visibility = "hidden";
 }
 
 // Code for product slider 2 of home page
@@ -142,5 +136,8 @@ if(end2 == n2){
 function cross_clicked(){
     document.querySelector(".submit-contact").style.display = "none"
 }
-var element = document.querySelector(".submit-contact")
-element.style.display = "flex"
+if(document.querySelector(".submit-contact")){
+    var element = document.querySelector(".submit-contact")
+    element.style.display = "flex"  
+}
+

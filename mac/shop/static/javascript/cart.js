@@ -1,12 +1,17 @@
 var cart = JSON.parse(localStorage.getItem("cart"))
 var cart_items = document.getElementsByClassName("cart-items")
-var keys = Object.keys(cart).length;
+if(cart != null){
+    var keys = Object.keys(cart).length;    
+}
+else{
+    var keys = 0
+}
 
-
+// iska matlab ye hai ki agar koi bhi item user ne cart nhi kara then 'Your Cart is Empty' Wala message show kardo.
 if(keys == 0){
-    document.querySelector(".cart-container").innerHTML = ""
-    document.querySelector(".cart-container").setAttribute("class","cart-container-sibling")
-    document.querySelector(".cart-container-sibling").innerHTML = "<h3> Your Cart is Empty! </h3>"
+    document.querySelector(".cart-container").innerHTML = "<h3> Your Cart is Empty, Add your Products to the cart! </h3>"
+    let cartContainer = document.querySelector(".cart-container")
+    cartContainer.setAttribute("class","cart-container-sibling")
 }
 else{
     document.querySelector(".left-cart").firstElementChild.innerHTML = `My Cart(${keys})`
@@ -35,15 +40,15 @@ else{
     
     function buttonClick(id){
         delete cart[id]
-        localStorage.setItem("cart",JSON.stringify(cart))
+        localStorage.setItem("cart",JSON.stringify(cart));
         document.querySelector(`#${id}`).style.display = "none"
         document.querySelector(`#${id}`).classList.remove("present");
         document.querySelector(`#${id}`).classList.add("cart-items");
         var keys = Object.keys(cart).length;
         if(keys == 0){
-            document.querySelector(".cart-container").innerHTML = ""
-            document.querySelector(".cart-container").setAttribute("class","cart-container-sibling")
-            document.querySelector(".cart-container-sibling").innerHTML = "<h3> Your Cart is Empty! </h3>"
+            document.querySelector(".cart-container").innerHTML = "<h3> Your Cart is Empty, Add your Products to the cart! </h3>"
+            let cartContainer = document.querySelector(".cart-container")
+            cartContainer.setAttribute("class","cart-container-sibling")
         }
         else{
             document.querySelector(".left-cart").firstElementChild.innerHTML = `My Cart(${keys})`
@@ -54,9 +59,7 @@ else{
 
 // Logic when we click + and - buttons then we have to update the number of items of the product
 
-var cart_items = document.getElementsByClassName("present")
-var cart = JSON.parse(localStorage.getItem("cart"))
-
+// Below Code sare ke sare product items ke count ko set kardega.
 Array.from(cart_items).forEach(function(element){
     id = element.id;
     document.querySelector("#btn"+id).innerHTML = cart[id][1]
@@ -99,14 +102,15 @@ function decreaseProductPrice(id,count){
         element = document.getElementById(id).getElementsByTagName("h4")
         str = element[0].innerHTML.slice(1,);
         str = str.replace(',',"")
-        num = parseInt(str)
-        num2 = parseInt(num / count)
-        num = num - num2;
-        str = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        initialValue = parseInt(str)
+        baseValue = parseInt(num / count)
+        finalValue = initialValue - baseValue;
+        str = finalValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         document.getElementById(id).getElementsByTagName("h4")[0].innerHTML = `₹${str}`;
     }
 }
 
+// Ye function humne tab chalaya hai jab user iss cart page pe aaya hai , takki jaise ko cart page pe aaye usko price jo hai update hoke mil jaye 
 function updateProductPrice(cart_items){
     Array.from(cart_items).forEach(function(element){
         id = element.id;
@@ -121,11 +125,11 @@ function updateProductPrice(cart_items){
     })
 }
 
-// Ye function sare products ka price sum karke store karega
+// Ye function sare products ka price sum karke return karega
 
 function sumOfAllProductPrice(){
-    var sum = 0;
-    var items = document.getElementsByClassName("present")
+    let sum = 0;
+    let items = document.getElementsByClassName("present")
 
     Array.from(items).forEach(function(element){
         heading = element.getElementsByTagName("h4")
@@ -142,16 +146,16 @@ function sumOfAllProductPrice(){
 
 function updateProductDetails(){
     let cart = JSON.parse(localStorage.getItem("cart"));
-    count = Object.keys(cart).length;
-    heading1 = document.querySelector(".price").firstElementChild;
+    let count = Object.keys(cart).length;
+    let heading1 = document.querySelector(".price").firstElementChild;
     heading1.innerHTML = `Price(${count} items)`
 
-    let str = sumOfAllProductPrice()
-    heading2 = document.querySelector(".price").lastElementChild;
-    heading2.innerHTML = `₹${str}`;
+    let totalPrice = sumOfAllProductPrice()
+    let heading2 = document.querySelector(".price").lastElementChild;
+    heading2.innerHTML = `₹${totalPrice}`;
 
-    heading3 = document.querySelector(".total-amount").lastElementChild;
-    heading3.innerHTML = `₹${str}`;
+    let heading3 = document.querySelector(".total-amount").lastElementChild;
+    heading3.innerHTML = `₹${totalPrice}`;
 }
 
 // Using media queries in javascript

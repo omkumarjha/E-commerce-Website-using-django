@@ -21,7 +21,7 @@
         <div class="right-part">
             <svg  onclick="cross_clicked()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
+            </svg>
         </div>
     </div>
 
@@ -32,30 +32,30 @@
                 <h2>Lets talk about everything!</h2>
             </div>
             <div class="contact-right">
-                <form class="contact-form" action="/shop/contact" method="post" >
-                    {% csrf_token %}
+                <form class="contact-form" action="#" method="post">
+                    {% csrf_token %} 
 
                     <div class="name">
                         <h4>Name</h4>
-                        <input type="text" name = "name" id = "name">
+                        <input type="text" name = "name" id = "name" required>
                     </div>
 
                     <div class="email">
                         <h4>Email</h4>
-                        <input type="email" name = "email" id = "email">
+                        <input type="email" name = "email" id = "email" required>
                     </div>
 
                     <div class="phone">
                         <h4>Phone</h4>
-                        <input type="tel" name="phone" id = "phone">
+                        <input type="tel" name="phone" id = "phone" required>
                     </div>
 
                     <div class="message">
                         <h4>Message</h4>
-                        <textarea name="message" id = "message" cols="60" rows="10"></textarea>
+                        <textarea name="message" id = "message" cols="60" rows="10" required></textarea>
                     </div>
                     <div class="button-form">
-                        <input type="submit" value="Submit" onclick="button_clicked()">  
+                        <input type="submit" value="Submit">  
                     </div>
 
                 </form>
@@ -69,37 +69,5 @@
 {% endblock %}
 
 {% block script %} 
-    <script src="{% static 'javascript/contact.js' %}"></script>
-
-
-    <script type = "text/javascript">
-
-        $('.contact-form').on('submit', function(event){
-            event.preventDefault();
-            create_post();
-        });
-
-        function create_post(){
-
-            $.ajax({
-                type: "POST",
-                url: "/shop/contact",
-                data:{
-                    name: $("#name").val(),
-                    email: $("#email").val(),
-                    phone: $("#phone").val(),
-                    message: $("#message").val(),
-                    csrfmiddlewaretoken: $("input[name = csrfmiddlewaretoken]").val(),
-                },
-                success: function(){
-                    $("#name").val("");
-                    $("#email").val("");
-                    $("#phone").val("");
-                    $("#message").val("");
-                }
-            })
-
-        }
-    </script>
-    
+        <script src="{% static 'javascript/contact.js' %}"></script>
 {% endblock %}

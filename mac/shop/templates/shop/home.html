@@ -4,6 +4,7 @@
     {% block title %} EStore(Shopping Website) {% endblock %}
 
     {% block style %}
+    <!-- Ctrl F5 (or Ctrl + F5) reloads the current page including the browser cache. It's called Hard reload. It means that the browser will not use the current cache but will be forced to download again all the files (js files, images, scripts, …). You will have the most fresh version of the page sent by the server. -->
     <link rel="stylesheet" href="{% static 'css/contact.css' %}">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive_home.css' %}">
@@ -114,7 +115,7 @@
         <div class="arrow2 prev2" onclick="moveLeft()">&#10094;</div>
         
         {% for i in product %}
-        <div class="child-slider" id="c1">
+        <div class="child-slider">
             <a href="/shop/productView/{{i.id}}/1"><img src="/media/{{i.prodImage}}" width="140px" height="140px"></a>
             <a href="/shop/productView/{{i.id}}/1"><h3>{{i.prodName}}</h3></a>
             <p><b>{{i.prodPrice}}</b></p>
@@ -138,7 +139,7 @@
         <div class="arrow2 prev2" onclick="moveLeft2()">&#10094;</div>
         
         {% for i in product2 %}
-        <div class="child-slider2" id="c1">
+        <div class="child-slider2">
             <a href="/shop/productView/{{i.id}}/2"><img src="/media/{{i.prodImage}}" width="70px" height="150px"></a>
             <a href="/shop/productView/{{i.id}}/2"><h3>{{i.prodName}}</h3></a>
             <p><b>{{i.prodPrice}}</b></p>
@@ -151,8 +152,6 @@
     </div>
 
     <hr style = "margin-top: 40px">
-
-
 
     {% endblock %}
 
