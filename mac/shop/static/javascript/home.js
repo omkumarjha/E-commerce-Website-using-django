@@ -1,4 +1,5 @@
 //Code for Image-slider of home page
+let intervalId;
 let flag = 1;
 showSlides(flag)
 
@@ -20,10 +21,18 @@ function showSlides(num){
     })
     slides[flag].style.display = "block";
 }
-setInterval(function(){
+intervalId = setInterval(function(){
     controller(-1);
 },5000)
 
+function setinterval(){
+    intervalId = setInterval(function(){
+        controller(-1);
+    },5000)    
+}
+function clearinterval(){
+    clearInterval(intervalId)
+}
 
 //Code for product-Slider1 Of home page
 let start = 1;
