@@ -131,11 +131,16 @@
         <div class="arrow2 prev2" onclick="moveLeft()">&#10094;</div>
         
         {% for i in product %}
-        <div class="child-slider">
-            <a href="/shop/productView/{{i.id}}/1"><img src="/media/{{i.prodImage}}" width="140px" height="140px"></a>
-            <a href="/shop/productView/{{i.id}}/1"><h3>{{i.prodName}}</h3></a>
-            <p><b>{{i.prodPrice}}</b></p>
-        </div>
+            <!-- forloop.counter hume for tag ke each iteration ka number deta hai starting from 1  and forloop.counter0  starting deta hai 0 se-->
+            {% if forloop.counter <= 7 %}
+
+            <div class="child-slider">
+                <a href="/shop/productView/{{i.id}}"><img src="/media/{{i.prodImage}}" width="140px" height="140px"></a>
+                <a href="/shop/productView/{{i.id}}"><h3>{{i.prodName}}</h3></a>
+                <p><b>{{i.prodPrice}}</b></p>
+            </div>
+            
+            {% endif %}
         {% endfor %}
 
         <!-- Right arrow of product-slider1  -->
@@ -146,7 +151,7 @@
 
     <!-- product slider 2 -->
 
-    <h2>Trending Offers</h2>
+    <h2>Mobiles</h2>
     <hr style="margin-top: 13px">
 
     <div class="product-slider2">
@@ -154,11 +159,11 @@
          <!-- Left arrow of product-slider -->
         <div class="arrow2 prev2" onclick="moveLeft2()">&#10094;</div>
         
-        {% for i in product2 %}
+        {% for item in Mobile %}
         <div class="child-slider2">
-            <a href="/shop/productView/{{i.id}}/2"><img src="/media/{{i.prodImage}}" width="70px" height="150px"></a>
-            <a href="/shop/productView/{{i.id}}/2"><h3>{{i.prodName}}</h3></a>
-            <p><b>{{i.prodPrice}}</b></p>
+            <a href="/shop/productView/{{item.id}}"><img src="/media/{{item.prodImage}}" width="70px" height="150px"></a>
+            <a href="/shop/productView/{{item.id}}"><h3>{{item.prodName}}</h3></a>
+            <p><b>{{item.prodPrice}}</b></p>
         </div>
         {% endfor %}
 

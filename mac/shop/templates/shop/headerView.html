@@ -9,24 +9,23 @@
     <title>{% block title %} {{title|upper}} {% endblock %}</title>
     {% block style %} 
         <link rel="stylesheet" href="{% static 'css/headerView.css' %}">
-        <link rel="stylesheet" href="{% static 'css/home.css' %}"> 
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive_home.css' %}">
     {% endblock %}
 </head>
 <body>
     {% block body %}
-        <h1>hello we are in {{title}} Page..</h1> 
+        <div class="parentProducts">
 
-        {% for item in product %}
-            <a href="/shop/productView/{{item.id}}/1"><img src="/media/{{item.prodImage}}" width="140px" height="140px"></a>
-            <a href="/shop/productView/{{item.id}}/1"><h3>{{item.prodName}}</h3></a>
-            <p><b>{{item.prodPrice}}</b></p>
-        {% endfor %}  
+            {% for item in product %}
+                <div class="productItems">
+                    <a href="/shop/productView/{{item.id}}"><img src="/media/{{item.prodImage}}" width="115px"></a>
+                    <a href="/shop/productView/{{item.id}}"><h3>{{item.prodName}}</h3></a>
+                    <p><b>{{item.prodPrice}}</b></p>
+                </div>
+             {% endfor %}  
 
-        {% for item in product2 %}
-            <a href="/shop/productView/{{item.id}}/2"><img src="/media/{{item.prodImage}}" width="70px" height="150px"></a>
-            <a href="/shop/productView/{{item.id}}/2"><h3>{{item.prodName}}</h3></a>
-            <p><b>{{item.prodPrice}}</b></p>
-        {% endfor %}  
+        </div>
 
     {% endblock %}
 </body>

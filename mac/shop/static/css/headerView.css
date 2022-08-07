@@ -1,0 +1,20 @@
+.parentProducts{
+    display: grid;
+    grid-template-columns: 50vw 50vw;
+    grid-row-gap: 35px;
+    margin-top: 35px;
+}
+.productItems {
+    text-align: center;
+}
+.productItems a{
+    text-decoration: none;
+    color: black;
+}
+.productItems h3,p{
+    font-family: 'Lato', sans-serif;
+    margin: 13px;
+}
+.productItems a:hover{
+    color: #26a541;
+}

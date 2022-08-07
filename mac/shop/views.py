@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from .models import Product2,Product,Contact,Order,OrderUpdate
+from .models import Product,Contact,Order,OrderUpdate
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
@@ -15,35 +15,26 @@ from django.core.mail import send_mail
 @login_required(login_url='/shop/login')   # Matlab agar user ne login nhi kiya hua to wo jis bhi page pe jaane ki koshish kare ko login_url wale path mai chala jayega
 def home(request):
     products1 = Product.objects.all()  # it will return a Query set Containing all the product objects
-    products2 = Product2.objects.all()
+    mobiles = Product.objects.filter(category = "M")
 
     params = {
         "product" : products1,
-        "product2" : products2
+        "Mobile" : mobiles
     }
     return render(request,"shop/home.html",params)
 
 @login_required(login_url='/shop/login')
-def productView(request,id,num):
-    if(num == 1):
-        product = Product.objects.filter(id=id)
-        button_id = "p"
-        temp = 1
-    else:
-        product = Product2.objects.filter(id=id)
-        button_id = "q"
-        temp = 2
+def productView(request,id):
 
-    return render(request,"shop/productView.html",{"product":product[0],"button_id":button_id,"temp" : temp})
+    product = Product.objects.filter(id=id)
+    return render(request,"shop/productView.html",{"product":product[0]})
 
 @login_required(login_url='/shop/login')
 def cart(request):
     products1 = Product.objects.all()
-    products2 = Product2.objects.all()
 
     params = {
         "product" : products1,
-        "product2" : products2,
     }
     return render(request, "shop/cart.html",params)
 
@@ -88,24 +79,18 @@ def razorInitialization():
     return context
 
 @login_required(login_url='/shop/login')
-def checkout(request,belong,id,num):
+def checkout(request,belong,id):
 
-    if(belong == 1):
-        
-        if(num == 1):  # ye num variable bata raha hai ki product model 1 ka hai ye model 2 ka
-            product = Product.objects.filter(id=id)
-        else:
-            product = Product2.objects.filter(id=id)
-        
+    if(belong == 1): # iska matlab ki user ne product view wale web page se particular product ko click kara hai.
+        product = Product.objects.filter(id=id)
         context = razorInitialization()
         context["product"] = product[0]
 
         return render(request,"shop/checkout.html",context=context)
-    else:
 
+    else: # iska matlab ki user cart se khareed raha hai.
         context = razorInitialization()
         return render(request,"shop/checkout.html",context=context)
-
 
 order_id = 0
 
@@ -166,12 +151,12 @@ def paymenthandler(request):
  
             # verify the payment signature.
             result = razorpay_client.utility.verify_payment_signature(params_dict) # isse hum ye dekh rahe hai ki jo razor pay ka signature hai wahi humne use kara tha payment karne ke liye if yes then ye True return karega otherwise error dega.
-
+            print("yes it happened..")
             if result == True:
                 amount = 200000*100  # Rs. 200
 
                 # capture the payment
-                # razorpay_client.payment.capture(razorpay_payment_id, amount)
+                razorpay_client.payment.capture(razorpay_payment_id, amount)
 
                 # render success page on successful captre of payment
                 return paymentsuccess(request)
@@ -286,47 +271,38 @@ def headerView(request,titleNumber):
     if(titleNumber == 1):
         title = "offers"
         product = Product.objects.all()
-        product2 = Product2.objects.all()
 
     elif(titleNumber == 2):
         title = "Grocery"
         product = Product.objects.filter(category = "G")
-        product2 = Product2.objects.filter(category = "G")
 
     elif(titleNumber == 3):
         title = "Mobiles"
         product = Product.objects.filter(category = "M")
-        product2 = Product2.objects.filter(category = "M")
 
     elif(titleNumber == 4):
         title = "Fashion"
         product = Product.objects.filter(category = "C")
-        product2 = Product2.objects.filter(category = "C")
 
     elif(titleNumber == 5):
         title = "Electronics"
         product = Product.objects.filter(category = "E")
-        product2 = Product2.objects.filter(category = "E")
 
     elif(titleNumber == 6):
         title = "Home"
         product = Product.objects.filter(category = "BS")
-        product2 = Product2.objects.filter(category = "BS")
 
     elif(titleNumber == 7):
         title = "Appliances"
         product = Product.objects.filter(category = "A")
-        product2 = Product2.objects.filter(category = "A")
 
     else:
         title = "Beauty,Toys"
         product = Product.objects.filter(category = "T")
-        product2 = Product2.objects.filter(category = "T")
 
     dict = {
         "title" : title,
         "product" : product,
-        "product2" : product2,
     }
 
     return render(request,"shop/headerView.html",context=dict)

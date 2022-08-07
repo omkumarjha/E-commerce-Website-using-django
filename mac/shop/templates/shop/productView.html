@@ -139,7 +139,7 @@
 
 <!-- Calling Our function to set Add to cart To Go to cart -->
 {% block load %}
-            onload = "change_AddToCart_To_GoToCart_While_Page_Loading('span{{button_id}}{{product.id}}','{{button_id}}{{product.id}}') "
+            onload = "change_AddToCart_To_GoToCart_While_Page_Loading('span{{product.id}}','{{product.id}}') "
 {% endblock %}
 
 
@@ -157,10 +157,10 @@
         <h4><b>{{product.prodPrice}}</b></h4>
         <p class="hurry">Hurry, Only Few lefts!</p>
         <div class="product-button">
-            <span id = "span{{button_id}}{{product.id}}">
-                <button class="btn1" id = {{button_id}}{{product.id}}>Add to Cart</button>
+            <span id = "span{{product.id}}">
+                <button class="btn1" id ={{product.id}}>Add to Cart</button>
             </span>
-            <a href="/shop/checkout/1/{{product.id}}/{{temp}}"><button class = "btn2">Buy Now</button></a>
+            <a href="/shop/checkout/1/{{product.id}}"><button class = "btn2">Buy Now</button></a>
         </div>
         <div class="offers">
             <h2>Available Offers</h2>
@@ -196,9 +196,6 @@
         let id = this.id.toString()
         if(cart[id] == undefined){
             cart[id] = [document.getElementById("prodName").innerHTML,1]
-        }
-        else{
-            cart[id][1] = cart[id][1] + 1
         }
         localStorage.setItem("cart",JSON.stringify(cart))
         document.querySelector(".cart-number").innerHTML = Object.keys(cart).length;
