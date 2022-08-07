@@ -14,4 +14,5 @@ urlpatterns = [
     path("login",views.handleLogin),
     path("signup",views.handleSignup),
     path("logout",views.handleLogout),
+    path("headerView/<int:titleNumber>",views.headerView),
 ]

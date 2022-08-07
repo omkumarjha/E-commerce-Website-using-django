@@ -277,3 +277,56 @@ def handleLogout(request):
     logout(request)
     messages.success(request, "Logged Out Successfully")
     return redirect("/shop/login")
+
+
+# This view is used to handle the traffic for header catagories eg --> Offers,Electronics,Fashion.
+def headerView(request,titleNumber):
+    title = ""
+
+    if(titleNumber == 1):
+        title = "offers"
+        product = Product.objects.all()
+        product2 = Product2.objects.all()
+
+    elif(titleNumber == 2):
+        title = "Grocery"
+        product = Product.objects.filter(category = "G")
+        product2 = Product2.objects.filter(category = "G")
+
+    elif(titleNumber == 3):
+        title = "Mobiles"
+        product = Product.objects.filter(category = "M")
+        product2 = Product2.objects.filter(category = "M")
+
+    elif(titleNumber == 4):
+        title = "Fashion"
+        product = Product.objects.filter(category = "C")
+        product2 = Product2.objects.filter(category = "C")
+
+    elif(titleNumber == 5):
+        title = "Electronics"
+        product = Product.objects.filter(category = "E")
+        product2 = Product2.objects.filter(category = "E")
+
+    elif(titleNumber == 6):
+        title = "Home"
+        product = Product.objects.filter(category = "BS")
+        product2 = Product2.objects.filter(category = "BS")
+
+    elif(titleNumber == 7):
+        title = "Appliances"
+        product = Product.objects.filter(category = "A")
+        product2 = Product2.objects.filter(category = "A")
+
+    else:
+        title = "Beauty,Toys"
+        product = Product.objects.filter(category = "T")
+        product2 = Product2.objects.filter(category = "T")
+
+    dict = {
+        "title" : title,
+        "product" : product,
+        "product2" : product2,
+    }
+
+    return render(request,"shop/headerView.html",context=dict)

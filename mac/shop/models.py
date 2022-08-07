@@ -2,6 +2,17 @@ from django.db import models
 
 # Below are some model class that we created..
 
+CATEGORY_CHOICES = (
+    ("M","Mobiles"),
+    ("G","Grocery"),
+    ("E","Electronics"),
+    ("C","Clothes"),
+    ("BS","Basic Stuffs"),
+    ("A","Appliances"),
+    ("G","Grocery"),
+    ("T","Toys")
+)
+
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     prodName = models.CharField(max_length=50)
@@ -9,6 +20,7 @@ class Product(models.Model):
     prodDate = models.DateField()
     prodPrice = models.CharField(max_length=20)
     prodImage = models.ImageField(upload_to = "shop/images",default = "")
+    category = models.CharField(choices=CATEGORY_CHOICES,max_length=2)
 
     def __str__(self):
         return self.prodName
@@ -20,7 +32,7 @@ class Product2(models.Model):
     prodDate = models.DateField()
     prodPrice = models.CharField(max_length=20)
     prodImage = models.ImageField(upload_to = "shop/images",default = "")
-
+    category = models.CharField(choices=CATEGORY_CHOICES,max_length=2)
 
     def __str__(self):
         return self.prodName

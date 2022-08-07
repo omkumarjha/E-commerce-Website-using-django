@@ -34,9 +34,9 @@ SECRET_KEY = 'django-insecure-71()t8nb(hu9z8k30vf*%$g22-$3qe2t&)30*3#j9^hc4hr4in
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# "192.168.1.5"  --> My IP V4 Address
+# "192.168.1.7"  --> My IP V4 Address
 
-ALLOWED_HOSTS = ["192.168.1.5"]
+ALLOWED_HOSTS = ["192.168.1.7"]
 
 
 # Application definition
