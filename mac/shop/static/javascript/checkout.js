@@ -1,6 +1,6 @@
 // Ye belong variable show karraha hai ki humne Buy now wale button ko click kara hai ya Place order wale button ko click kara hai
 var belong = location.href.toString()
-belong = parseInt(belong.slice(40, 41))
+belong = parseInt(belong.slice(38, 39))
 
 // JS code for Order summary 
 
@@ -17,7 +17,6 @@ if (belong == 1) {  //Means buy now wala button click hua hai
 
 }
 else {   //Means place order wala button click hua hai
-
     document.querySelector(".buy-now").style.display = "none";
     var place_order = ""
 

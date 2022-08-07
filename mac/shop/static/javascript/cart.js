@@ -41,9 +41,9 @@ else{
     function buttonClick(id){
         delete cart[id]
         localStorage.setItem("cart",JSON.stringify(cart));
-        document.querySelector(`#${id}`).style.display = "none"
-        document.querySelector(`#${id}`).classList.remove("present");
-        document.querySelector(`#${id}`).classList.add("cart-items");
+        document.getElementById(id).style.display = "none"
+        document.getElementById(id).classList.remove("present");
+        document.getElementById(id).classList.add("cart-items");
         var keys = Object.keys(cart).length;
         if(keys == 0){
             document.querySelector(".cart-container").innerHTML = "<h3> Your Cart is Empty, Add your Products to the cart! </h3>"
@@ -171,10 +171,6 @@ function updateProductDetails(){
         // document.querySelector(".cart-container").removeChild(document.querySelector(".place-order"))
         document.querySelector(".left-cart").appendChild(place_order)
     }
-
-
-
-
 
 // Regular expression to add commas to a number
 // num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")

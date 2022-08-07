@@ -115,6 +115,12 @@ li a:hover{
     cursor: pointer;
     text-align: center;
 }
+.box a{
+    text-decoration: none;
+}
+.box a h4{
+    color: black;
+}
 .box h4:hover{
     color: var(--main);
 }

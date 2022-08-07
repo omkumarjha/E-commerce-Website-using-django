@@ -19,46 +19,26 @@
             <h3 style = "font-size: 24px;">My Cart(0)</h3>
             <hr style="margin-top: 20px;">
             {% for item in product %}
-            <div class="cart-items" id = "p{{item.id}}">
+            <div class="cart-items" id = "{{item.id}}">
 
                 <div class="left-side">
-                    <img src="/media/{{item.prodImage}}" width="120px">
+                    <img src="/media/{{item.prodImage}}" height="135px">
                     <span class = "btnPlusMinus">
-                        <button class="minus" id = "minusp{{item.id}}">-</button> <button class="quantity" id = "btnp{{item.id}}">1</button> <button class="plus" id = "plusp{{item.id}}">+</button>
+                        <button class="minus" id = "minus{{item.id}}">-</button> <button class="quantity" id = "btn{{item.id}}">1</button> <button class="plus" id = "plus{{item.id}}">+</button>
                     </span>
                 </div>
                 <div class="right-side">
                     <h2>{{item.prodName}}</h2>
                     <h4>{{item.prodPrice}}</h4>
                     <div class="cart-buttons">
-                        <button class = "remove-item" onclick = "buttonClick('p{{item.id}}')">Remove Item</button>
+                        <button class = "remove-item" onclick = "buttonClick('{{item.id}}')">Remove Item</button>
                     </div>
                     <hr>
                 </div>
             </div>
             {% endfor %}
-
-            {% for item in product2 %}
-            <div class="cart-items" id = "q{{item.id}}">
-
-                <div class="left-side">
-                    <img src="/media/{{item.prodImage}}" width="80px">
-                    <span class = "btnPlusMinus">
-                        <button class="minus" id = "minusq{{item.id}}">-</button> <button class="quantity" id = "btnq{{item.id}}">1</button> <button class="plus plusq{{item.id}}" id = "plusq{{item.id}}">+</button>
-                    </span>
-                </div>
-                <div class="right-side">
-                    <h2>{{item.prodName}}</h2>
-                    <h4>{{item.prodPrice}}</h4>
-                    <div class="cart-buttons">
-                        <button class = "remove-item" onclick = "buttonClick('q{{item.id}}')">Remove Item</button>
-                    </div>
-                    <hr> 
-                </div>
-            </div>
-            {% endfor %}
                 <div class="place-order">
-                    <a href="/shop/checkout/2/0/0"><button class = "btnCart">Place Order</button></a>
+                    <a href="/shop/checkout/2/0"><button class = "btnCart">Place Order</button></a>
                 </div>
         </div>
         <div class="right-cart">

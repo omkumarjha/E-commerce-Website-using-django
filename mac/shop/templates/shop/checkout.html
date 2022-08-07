@@ -184,7 +184,7 @@
                 order_id: "{{ razorpay_order_id }}",
                 callback_url: "{{ callback_url }}",
 
-                // Agar user ne razorpay window ko dissmiss kar diya hai ye below code run karega
+                // Agar user ne razorpay window ko dismiss kar diya hai ye below code run karega
                 "modal": {
                     "ondismiss": function(){
                     window.location.href = "http://192.168.43.30:8000/shop/paymentfail"

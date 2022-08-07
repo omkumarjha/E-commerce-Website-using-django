@@ -38,43 +38,59 @@
     <div class="container">
 
         <div class="box">
-            <img src="https://rukminim2.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100" width="65px" height="65px">
-            <h4>Offers</h4>
+            <a href="/shop/headerView/1">
+                <img src="https://rukminim2.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100" width="65px" height="65px">
+                <h4>Offers</h4>
+            </a>
         </div>
         
         <div class="box">
-            <img src="https://rukminim2.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100" width="65px" height="65px">
-            <h4>Grocery</h4>
+            <a href="/shop/headerView/2">
+                <img src="https://rukminim2.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100" width="65px" height="65px">
+                <h4>Grocery</h4>
+            </a>
         </div>
 
         <div class="box">
-            <img src="https://rukminim2.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100" width="65px" height="65px">
-            <h4>Mobiles</h4>
+            <a href="/shop/headerView/3">
+                <img src="https://rukminim2.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100" width="65px" height="65px">
+                <h4>Mobiles</h4>
+            </a>
         </div>
 
         <div class="box">
-            <img src="https://rukminim2.flixcart.com/flap/128/128/image/82b3ca5fb2301045.png?q=100" width="65px" height="65px">
-            <h4>Fashion</h4>
+            <a href="/shop/headerView/4">
+                <img src="https://rukminim2.flixcart.com/flap/128/128/image/82b3ca5fb2301045.png?q=100" width="65px" height="65px">
+                <h4>Fashion</h4>
+            </a>
         </div>
 
         <div class="box">
-            <img src="https://rukminim2.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100" width="65px" height="65px">
-            <h4>Electronics</h4>
+            <a href="/shop/headerView/5">
+                <img src="https://rukminim2.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100" width="65px" height="65px">
+                <h4>Electronics</h4>
+            </a>
         </div>
 
         <div class="box">
-            <img src="https://rukminim2.flixcart.com/flap/128/128/image/ab7e2b022a4587dd.jpg?q=100" width="65px" height="65px">
-            <h4>Home</h4>
+            <a href="/shop/headerView/6">
+                <img src="https://rukminim2.flixcart.com/flap/128/128/image/ab7e2b022a4587dd.jpg?q=100" width="65px" height="65px">
+                <h4>Home</h4>
+            </a>
         </div>
 
         <div class="box">
-            <img src="https://rukminim2.flixcart.com/flap/128/128/image/0ff199d1bd27eb98.png?q=100" width="65px" height="65px">
-            <h4>Appliances</h4>
+            <a href="/shop/headerView/7">
+                <img src="https://rukminim2.flixcart.com/flap/128/128/image/0ff199d1bd27eb98.png?q=100" width="65px" height="65px">
+                <h4>Appliances</h4>
+            </a>
         </div>
 
         <div class="box">
-            <img src="https://rukminim2.flixcart.com/flap/128/128/image/dff3f7adcf3a90c6.png?q=100" width="65px" height="65px">
-            <h4>Beauty,Toys</h4>
+            <a href="/shop/headerView/8">
+                <img src="https://rukminim2.flixcart.com/flap/128/128/image/dff3f7adcf3a90c6.png?q=100" width="65px" height="65px">
+                <h4>Beauty,Toys</h4>
+            </a>
         </div>
     </div>
     <hr style="margin-top: 20px;">
@@ -100,8 +116,8 @@
         </div>
 
         <!-- Slides arrow -->
-        <div class="arrow prev" onclick="controller(-1)">&#10094;</div>
-        <div class="arrow next" onclick="controller(1)">&#10095;</div>
+        <div class="arrow prev" onclick="controller(-1)" onmouseover="clearinterval()" onmouseout="setinterval()">&#10094;</div>
+        <div class="arrow next" onclick="controller(1)" onmouseover="clearinterval()" onmouseout="setinterval()">&#10095;</div>
         
     </div>
     
@@ -115,11 +131,16 @@
         <div class="arrow2 prev2" onclick="moveLeft()">&#10094;</div>
         
         {% for i in product %}
-        <div class="child-slider">
-            <a href="/shop/productView/{{i.id}}/1"><img src="/media/{{i.prodImage}}" width="140px" height="140px"></a>
-            <a href="/shop/productView/{{i.id}}/1"><h3>{{i.prodName}}</h3></a>
-            <p><b>{{i.prodPrice}}</b></p>
-        </div>
+            <!-- forloop.counter hume for tag ke each iteration ka number deta hai starting from 1  and forloop.counter0  starting deta hai 0 se-->
+            {% if forloop.counter <= 7 %}
+
+            <div class="child-slider">
+                <a href="/shop/productView/{{i.id}}"><img src="/media/{{i.prodImage}}" width="140px" height="140px"></a>
+                <a href="/shop/productView/{{i.id}}"><h3>{{i.prodName}}</h3></a>
+                <p><b>{{i.prodPrice}}</b></p>
+            </div>
+            
+            {% endif %}
         {% endfor %}
 
         <!-- Right arrow of product-slider1  -->
@@ -130,7 +151,7 @@
 
     <!-- product slider 2 -->
 
-    <h2>Trending Offers</h2>
+    <h2>Mobiles</h2>
     <hr style="margin-top: 13px">
 
     <div class="product-slider2">
@@ -138,11 +159,11 @@
          <!-- Left arrow of product-slider -->
         <div class="arrow2 prev2" onclick="moveLeft2()">&#10094;</div>
         
-        {% for i in product2 %}
+        {% for item in Mobile %}
         <div class="child-slider2">
-            <a href="/shop/productView/{{i.id}}/2"><img src="/media/{{i.prodImage}}" width="70px" height="150px"></a>
-            <a href="/shop/productView/{{i.id}}/2"><h3>{{i.prodName}}</h3></a>
-            <p><b>{{i.prodPrice}}</b></p>
+            <a href="/shop/productView/{{item.id}}"><img src="/media/{{item.prodImage}}" width="70px" height="150px"></a>
+            <a href="/shop/productView/{{item.id}}"><h3>{{item.prodName}}</h3></a>
+            <p><b>{{item.prodPrice}}</b></p>
         </div>
         {% endfor %}
 

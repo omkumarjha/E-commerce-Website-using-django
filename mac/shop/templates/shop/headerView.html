@@ -1,0 +1,33 @@
+{% extends "shop/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {{title|upper}} {% endblock %}</title>
+    {% block style %} 
+        <link rel="stylesheet" href="{% static 'css/headerView.css' %}">
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive_home.css' %}">
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+        <div class="parentProducts">
+
+            {% for item in product %}
+                <div class="productItems">
+                    <a href="/shop/productView/{{item.id}}"><img src="/media/{{item.prodImage}}" width="115px"></a>
+                    <a href="/shop/productView/{{item.id}}"><h3>{{item.prodName}}</h3></a>
+                    <p><b>{{item.prodPrice}}</b></p>
+                </div>
+             {% endfor %}  
+
+        </div>
+
+    {% endblock %}
+</body>
+<script src="{% static 'javascript/headerView.js' %}"></script>
+</html>
