@@ -13,6 +13,7 @@ CATEGORY_CHOICES = (
     ("T","Toys")
 )
 
+
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     prodName = models.CharField(max_length=50)

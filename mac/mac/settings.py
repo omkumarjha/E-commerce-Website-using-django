@@ -34,9 +34,7 @@ SECRET_KEY = 'django-insecure-71()t8nb(hu9z8k30vf*%$g22-$3qe2t&)30*3#j9^hc4hr4in
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# "192.168.1.7"  --> My IP V4 Address
-
-ALLOWED_HOSTS = ["192.168.1.7"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -143,5 +141,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Razorpay key and secret key
-RAZOR_KEY_ID = "rzp_test_bJr7ZdlBBPA3U3"
-RAZOR_KEY_SECRET = "448nlqbWdTnP7TZQZdmxesN6"
+RAZOR_KEY_ID = "rzp_test_oPORqtAJJaumhU"
+RAZOR_KEY_SECRET = "BUKSpoP4kaqkrt8D0O01kjhW"

@@ -35,7 +35,7 @@
     <div class="order-details">
         <h2>Step 2 - Enter Address & Other details</h2>
 
-        <form class = "user-details" action = "/shop/checkout/0/0/0" method = "post" >
+        <form class = "user-details" method = "post" >
             {% csrf_token %}
 
             <div class="row1">
@@ -187,11 +187,10 @@
                 // Agar user ne razorpay window ko dismiss kar diya hai ye below code run karega
                 "modal": {
                     "ondismiss": function(){
-                    window.location.href = "http://192.168.43.30:8000/shop/paymentfail"
+                    window.location.href = 'http://127.0.0.1:8000/shop/paymentfail'
                 }
     }
             };
-
             // initialise razorpay with the options.
             var rzp1 = new Razorpay(options);
 

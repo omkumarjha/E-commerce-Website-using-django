@@ -11,6 +11,8 @@ from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 @login_required(login_url='/shop/login')   # Matlab agar user ne login nhi kiya hua to wo jis bhi page pe jaane ki koshish kare ko login_url wale path mai chala jayega
 def home(request):
@@ -54,11 +56,12 @@ def contact(request):
 
     return render(request,"shop/contact.html")
 
-def razorInitialization():
+
+def razorInitialization(prodPrice = 3000):
     # authorize razorpay client with API Keys.
     razorpay_client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
 
-    amount =  200000*100   # Amount razorpay mai paise mai hota hai
+    amount =  prodPrice * 100  # Amount razorpay mai paise mai hota hai
     currency = "INR"
     
     # Create a Razorpay Order
@@ -66,7 +69,7 @@ def razorInitialization():
 
     # order id of newly created order.
     razorpay_order_id = razorpay_order['id']
-    callback_url = 'http://192.168.43.30:8000/shop/paymenthandler'
+    callback_url = 'http://127.0.0.1:8000/shop/paymenthandler'
 
     # we need to pass these details to frontend.
     context = {}
@@ -81,14 +84,22 @@ def razorInitialization():
 @login_required(login_url='/shop/login')
 def checkout(request,belong,id):
 
-    if(belong == 1): # iska matlab ki user ne product view wale web page se particular product ko click kara hai.
+    # iska matlab hai ki user eak specific product ko kharid raha hai.
+    if belong == 1:
         product = Product.objects.filter(id=id)
-        context = razorInitialization()
+
+        amount = product[0].prodPrice[1 : ]
+        amount = amount.replace(",","")
+        amount = int(amount)
+        # print("if statement")
+
+        context = razorInitialization(amount)
         context["product"] = product[0]
 
         return render(request,"shop/checkout.html",context=context)
 
-    else: # iska matlab ki user cart se khareed raha hai.
+    # iska matlab user ne cart page ke andar place order pe click kara hai.
+    else:
         context = razorInitialization()
         return render(request,"shop/checkout.html",context=context)
 
@@ -151,12 +162,11 @@ def paymenthandler(request):
  
             # verify the payment signature.
             result = razorpay_client.utility.verify_payment_signature(params_dict) # isse hum ye dekh rahe hai ki jo razor pay ka signature hai wahi humne use kara tha payment karne ke liye if yes then ye True return karega otherwise error dega.
-            print("yes it happened..")
             if result == True:
-                amount = 200000*100  # Rs. 200
+                # amount = 2000 * 100  # Rs. 200
 
-                # capture the payment
-                razorpay_client.payment.capture(razorpay_payment_id, amount)
+                # # capture the payment
+                # razorpay_client.payment.capture(razorpay_payment_id, amount)
 
                 # render success page on successful captre of payment
                 return paymentsuccess(request)

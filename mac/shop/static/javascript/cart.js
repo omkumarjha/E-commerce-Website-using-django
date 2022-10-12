@@ -89,12 +89,12 @@ $(".plus").click(function(){
 function increaseProductPrice(id,count){
     element = document.getElementById(id).getElementsByTagName("h4")
     str = element[0].innerHTML.slice(1,);
-    str = str.replace(',',"")
-    num = parseInt(str)
-    num2 = parseInt(num / count)
-    num = num + num2;
-    str = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    document.getElementById(id).getElementsByTagName("h4")[0].innerHTML = `₹${str}`;
+    temp = str.replace(',',"")
+    final_value = parseInt(temp)
+    initial_value = parseInt(final_value / count)
+    ans = final_value + initial_value;
+    ans = ans.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    document.getElementById(id).getElementsByTagName("h4")[0].innerHTML = `₹${ans}`;
 }
 
 function decreaseProductPrice(id,count){
@@ -174,4 +174,3 @@ function updateProductDetails(){
 
 // Regular expression to add commas to a number
 // num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-
