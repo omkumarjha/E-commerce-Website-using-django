@@ -184,13 +184,6 @@
         ke tor par store kar do eak cart object ke aandar and cart ke aandar jitne bhi keys hai vo number of items in a cart represent karta hai.
     */
    
-    if(localStorage.getItem("cart") == null){
-       var cart = {}
-    }
-    else{
-        var cart = JSON.parse(localStorage.getItem("cart"))
-        document.querySelector(".cart-number").innerHTML = Object.keys(cart).length;
-    }
 
     $(".btn1").click(function(){
         let id = this.id.toString()
@@ -214,7 +207,7 @@
         }
     }
     function change_AddToCart_To_GoToCart_When_Clicked(spanId){
-                document.getElementById(spanId).innerHTML = "<button class = 'btn1'><a href = '/shop/cart'>Go To Cart</a></button>"
+            document.getElementById(spanId).innerHTML = "<button class = 'btn1'><a href = '/shop/cart'>Go To Cart</a></button>"
     }
 
     // ye par hum logic laga rahe hai product ke price ko lene ke liye

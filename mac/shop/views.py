@@ -103,10 +103,11 @@ def checkout(request,belong,id):
         context = razorInitialization()
         return render(request,"shop/checkout.html",context=context)
 
+# yeh variable humare order ki id ko contain karega takki agar user ki payment fail hojaye to iss id ki madat se uski information ko database mai se remove kar paye.
 order_id = 0
 
 def paymentsuccess(request):
-
+    # Jaise hi user ne place order pe click kara then uski sari information ko hum database mai dal rahe hai. matlab advance mai hi hum uska order place kar rahe hai.
     if request.method =='POST':
         
         name = request.POST.get("name","")
@@ -129,12 +130,14 @@ def paymentsuccess(request):
 
             order_id = order.id
     
+    # yeh below code tab chalega jab user ne successfull payement kar di ho.
     count = Order.objects.all().count()
     store = Order.objects.all()[count-1]
 
     return render(request,"shop/paymentsuccess.html",{"order_id": store.id})
 
 def paymentfail(request):
+    # Agar user ka payment fail hogaya hai then hum uski information ko database mai se remove kar denge.
     temp = Order.objects.filter(id = order_id)
     temp2 = OrderUpdate.objects.filter(order_id = order_id)
     temp.delete()
@@ -150,7 +153,7 @@ def paymenthandler(request):
              # authorize razorpay client with API Keys.
             razorpay_client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
  
-            # # get the required parameters from post request.
+            # get the required parameters from post request.
             razorpay_payment_id = request.POST.get('razorpay_payment_id', '')
             razorpay_order_id = request.POST.get('razorpay_order_id', '')
             razorpay_signature = request.POST.get('razorpay_signature', '')  # ye signature razor pay ne banaya hai
@@ -163,20 +166,13 @@ def paymenthandler(request):
             # verify the payment signature.
             result = razorpay_client.utility.verify_payment_signature(params_dict) # isse hum ye dekh rahe hai ki jo razor pay ka signature hai wahi humne use kara tha payment karne ke liye if yes then ye True return karega otherwise error dega.
             if result == True:
-                # amount = 2000 * 100  # Rs. 200
-
-                # # capture the payment
-                # razorpay_client.payment.capture(razorpay_payment_id, amount)
-
-                # render success page on successful captre of payment
                 return paymentsuccess(request)
             else:
- 
-                # if signature verification fails.
                 return render(request, 'shop/paymentfail.html')
 
 @login_required(login_url='/shop/login')
 def tracker(request):
+    # if statement tab chalega jab user order id and email dalke track order pe click karega tracker wale page pe.
     if(request.method == "POST"):
 
         order_id = request.POST.get("order_id","")
@@ -187,17 +183,20 @@ def tracker(request):
             count = Order.objects.filter(id = id,email = email).count()
 
             if(count == 1):
-                update = OrderUpdate.objects.filter(order_id = id)
+                # update variable ke aandar multiple entries ho sakti hai .
+                update = OrderUpdate.objects.filter(order_id = id) # it is a Query set.
                 updateLst = []
                 for item in update:
                     updateLst.append({"text":item.desc,"time":item.time})
+                # below code mai hum python object ko JSON mai convert kar rahe hai and use waha send kar rahe hai jaha se yeh request aayi hai.
                 response = json.dumps(updateLst,default=str)
-                return HttpResponse(response)
+                return HttpResponse(response)  # yaha par isne ajax ko response send kara data ki form mai.
             else:
+                # below code tab chalega jab user ne jo order id and email daala hai uska koi presence nhi hai database mai.
                 updateLst = [{}]
                 response = json.dumps(updateLst)
-                return HttpResponse(updateLst)
-            
+                return HttpResponse(updateLst)   
+        
     return render(request,"shop/tracker.html")
 
 

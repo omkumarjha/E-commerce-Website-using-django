@@ -67,12 +67,14 @@ Array.from(cart_items).forEach(function(element){
 
 $(".minus").click(function(){
     id = this.id.slice(5,)
-    decreaseProductPrice(id,cart[id][1])
-    cart[id][1] = cart[id][1] - 1;
-    cart[id][1] = Math.max(1,cart[id][1])
-    localStorage.setItem("cart",JSON.stringify(cart))
-    document.querySelector("#btn"+id).innerHTML = cart[id][1]
-    updateProductDetails()
+    console.log("Minus clicked : ",id)
+    if(cart[id][1] > 1){
+        decreaseProductPrice(id,cart[id][1])
+        cart[id][1] = cart[id][1] - 1;
+        localStorage.setItem("cart",JSON.stringify(cart))
+        document.querySelector("#btn"+id).innerHTML = cart[id][1]
+        updateProductDetails()
+    }
 })
 
 $(".plus").click(function(){
@@ -98,16 +100,14 @@ function increaseProductPrice(id,count){
 }
 
 function decreaseProductPrice(id,count){
-    if(count != 1){
         element = document.getElementById(id).getElementsByTagName("h4")
         str = element[0].innerHTML.slice(1,);
         str = str.replace(',',"")
         initialValue = parseInt(str)
-        baseValue = parseInt(num / count)
+        baseValue = parseInt(initialValue / parseInt(count))
         finalValue = initialValue - baseValue;
         str = finalValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         document.getElementById(id).getElementsByTagName("h4")[0].innerHTML = `₹${str}`;
-    }
 }
 
 // Ye function humne tab chalaya hai jab user iss cart page pe aaya hai , takki jaise ko cart page pe aaye usko price jo hai update hoke mil jaye 

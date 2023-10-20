@@ -1,6 +1,6 @@
 //Code for Image-slider of home page
 let intervalId;
-let flag = 1;
+let flag = 0;
 showSlides(flag)
 
 function controller(num){
@@ -21,9 +21,6 @@ function showSlides(num){
     })
     slides[flag].style.display = "block";
 }
-intervalId = setInterval(function(){
-    controller(-1);
-},5000)
 
 function setinterval(){
     intervalId = setInterval(function(){
@@ -134,10 +131,6 @@ function moveRight2(){
     if(end2 == n2){
         right_arrow2.style.visibility = "hidden";
     }
-}
-
-if(end2 == n2){
-    right_arrow.style.visibility = "hidden";
 }
 
 // Niche ka mainly code hai jab user login karlega tab usko message show kara ne ka code
