@@ -104,7 +104,7 @@ def checkout(request,belong,id):
         return render(request,"shop/checkout.html",context=context)
 
 # yeh variable humare order ki id ko contain karega takki agar user ki payment fail hojaye to iss id ki madat se uski information ko database mai se remove kar paye.
-order_id = 0
+# order_id = 0
 
 def paymentsuccess(request):
     # Jaise hi user ne place order pe click kara then uski sari information ko hum database mai dal rahe hai. matlab advance mai hi hum uska order place kar rahe hai.
@@ -127,8 +127,6 @@ def paymentsuccess(request):
             order.save()
             update = OrderUpdate(order_id = order.id , desc = "Your Order has been Placed")
             update.save()
-
-            order_id = order.id
     
     # yeh below code tab chalega jab user ne successfull payement kar di ho.
     count = Order.objects.all().count()
@@ -138,14 +136,19 @@ def paymentsuccess(request):
 
 def paymentfail(request):
     # Agar user ka payment fail hogaya hai then hum uski information ko database mai se remove kar denge.
-    temp = Order.objects.filter(id = order_id)
-    temp2 = OrderUpdate.objects.filter(order_id = order_id)
+    count = Order.objects.all().count()
+    count2 = OrderUpdate.objects.all().count()
+
+    temp = Order.objects.all()[count-1]
+    temp2 = OrderUpdate.objects.all()[count2-1]
+
     temp.delete()
     temp2.delete()
 
     return render(request,"shop/paymentfail.html")
 
-@csrf_exempt
+# Callback URL is the address at which Razorpay should send the transaction response.
+@csrf_exempt # because koi external source hamare website pe request nhi mar sakta but we want ki razorpay transaction detail show kare isliye we exempted it.
 def paymenthandler(request):
 
     if request.method == "POST":
@@ -163,12 +166,14 @@ def paymenthandler(request):
                 'razorpay_signature': razorpay_signature
             }
  
-            # verify the payment signature.
-            result = razorpay_client.utility.verify_payment_signature(params_dict) # isse hum ye dekh rahe hai ki jo razor pay ka signature hai wahi humne use kara tha payment karne ke liye if yes then ye True return karega otherwise error dega.
-            if result == True:
+            try:
+                # verify the payment signature.
+                result = razorpay_client.utility.verify_payment_signature(params_dict) # isse hum ye dekh rahe hai ki jo razor pay ka signature hai wahi humne use kara tha payment karne ke liye if yes then ye True return karega otherwise error dega. or jab user final failure of the payment pe click kare.
                 return paymentsuccess(request)
-            else:
-                return render(request, 'shop/paymentfail.html')
+            except: 
+                print("Payment failed")
+                return paymentfail(request)
+                
 
 @login_required(login_url='/shop/login')
 def tracker(request):
